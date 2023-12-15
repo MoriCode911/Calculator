@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mori Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #282c34;
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h1 {
+            color: #61dafb;
+        }
+
+        #calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 15px;
+            background-color: #61dafb;
+            color: #282c34;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a9d3;
+        }
+
+        #result {
+            grid-column: span 4;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 24px;
+            background-color: #45a9d3;
+            color: #282c34;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mori Calculator</h1>
+
+    <div id="calculator">
+        <button onclick="clearResult()">C</button>
+        <button onclick="appendCharacter('/')">/</button>
+        <button onclick="appendCharacter('*')">*</button>
+        <button onclick="deleteCharacter()">←</button>
+        <button onclick="appendCharacter('7')">7</button>
+        <button onclick="appendCharacter('8')">8</button>
+        <button onclick="appendCharacter('9')">9</button>
+        <button onclick="appendCharacter('-')">-</button>
+        <button onclick="appendCharacter('4')">4</button>
+        <button onclick="appendCharacter('5')">5</button>
+        <button onclick="appendCharacter('6')">6</button>
+        <button onclick="appendCharacter('+')">+</button>
+        <button onclick="appendCharacter('1')">1</button>
+        <button onclick="appendCharacter('2')">2</button>
+        <button onclick="appendCharacter('3')">3</button>
+        <button onclick="calculateResult()">=</button>
+        <button onclick="appendCharacter('0')">0</button>
+        <button onclick="appendCharacter('.')">.</button>
+    </div>
+
+    <div id="result">0</div>
+
+    <script>
+        let resultElement = document.getElementById('result');
+        let expression = '';
+
+        function appendCharacter(char) {
+            expression += char;
+            updateResult();
+        }
+
+        function deleteCharacter() {
+            expression = expression.slice(0, -1);
+            updateResult();
+        }
+
+        function clearResult() {
+            expression = '';
+            updateResult();
+        }
+
+        function calculateResult() {
+            try {
+                let result = eval(expression);
+                expression = result.toString();
+                updateResult();
+            } catch (error) {
+                expression = 'Error';
+                updateResult();
+            }
+        }
+
+        function updateResult() {
+            resultElement.textContent = expression;
+        }
+    </script>
+
+</body>
+</html>
